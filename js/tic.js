@@ -14,30 +14,36 @@ const winning_compo = [
                     [2,4,6]
                             ];
 const cellElements = document.querySelectorAll('[data-cell]');
-let circelTurn
+let circelTurn;
 const resturtButton = document.getElementById("restart");
+const resetButton = document.getElementById("reset");
+
 startGame();
-resturtButton.addEventListener("click",startGame)
+
+resturtButton.addEventListener("click",startGame);
+
+resetButton.addEventListener("click",startGame);
+
 function startGame(){
-    circelTurn = false
+    circelTurn = false;
     cellElements.forEach(cell => {
-        cell.classList.remove(X_CLASS)
-        cell.classList.remove(CIRCEL_CLASS)
-        cell.removeEventListener("click",handleClick)
-        cell.addEventListener('click', handleClick, { once: true })
+        cell.classList.remove(X_CLASS);
+        cell.classList.remove(CIRCEL_CLASS);
+        cell.removeEventListener("click",handleClick);
+        cell.addEventListener('click', handleClick, { once: true });
     });
     setBoardHoverClass();
     winningMessageElement.classList.remove("show");
 }
 
 function handleClick(e) {
-    const cell = e.target
-    const currentClass = circelTurn ? CIRCEL_CLASS : X_CLASS
+    const cell = e.target;
+    const currentClass = circelTurn ? CIRCEL_CLASS : X_CLASS;
     placeMark(cell, currentClass);
     if (checkWin(currentClass)){
-        endGame(false)
+        endGame(false);
     } else if(isDraw()){
-        endGame(true)
+        endGame(true);
     }else{
         swapTurns();
         setBoardHoverClass();
@@ -59,6 +65,7 @@ function isDraw() {
         return cell.classList.contains(X_CLASS) || cell.classList.contains(CIRCEL_CLASS)
     })
 }
+
 function placeMark(cell, currentClass) {
     cell.classList.add(currentClass)
 }
